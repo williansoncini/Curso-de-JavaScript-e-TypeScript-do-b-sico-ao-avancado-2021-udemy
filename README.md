@@ -1,1 +1,3 @@
-# Curso-de-JavaScript-e-TypeScript-do-b-sico-ao-avancado-2021-udemy
+# Link d curso
+
+https://www.udemy.com/course/curso-de-javascript-moderno-do-basico-ao-avancado/
