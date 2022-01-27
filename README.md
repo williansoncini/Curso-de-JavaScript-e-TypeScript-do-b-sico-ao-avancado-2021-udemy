@@ -199,3 +199,131 @@ Number('5') //number
 Number('5.2') //number
 5.2
 ```
+
+### Alert
+
+Dentro do objeto window, assim como o método console.log.
+
+- retorna undefined
+
+```js
+window.alert('teste')
+alert('value')
+alert(1)
+```
+
+### Confirm
+
+- retorna um boolean
+
+```js
+window.confirm('mensagem')
+confirm('mensagem')
+```
+
+### prompt
+
+- retorna uma string
+
+```js
+window.prompt('mensagem')
+confirm('mensagem')
+```
+
+### String
+
+#### Para escapar um caracter utilize \
+
+```js
+'utilize o \"'
+```
+
+#### Posições
+
+```js
+ 012345
+'123456'
+```
+
+#### Concat
+
+```js
+'string' + 'string'
+`${umaString} mais outra string` //mais utilizada
+umaString.concat('string')
+```
+
+#### index
+
+##### indexOf
+
+```js
+const valor = 'teste'
+valor.indexOf('e') //1
+valor.indexOf('w') //-1 - Retorna -1 quando valor não é encontrado
+```
+
+##### lastIndexOf
+
+```js
+const valor = 'teste'
+valor.lastIndexOf('e') //1 - Faz a mesma coisa que o indexOf, porém ele começa a percorrer o array para parte de trás
+```
+
+### Expressões regulares
+
+```js
+'teste'.match(/[a-z]/g) // ['t', 'e', 's', 't', 'e']
+'teste'.search(/s/) // 2
+'teste'.replace('s', 'x') // texte
+'teste'.replace(/s/, 'x') // texte
+'tessssssste'.replace(/s/g, 'x') // texxxxxxxte
+'teste'.length //5
+'teste'.slice(2,4) // 's'
+'teste'.slice(1,-1) // este
+'teste'.substring(1,2) // e
+'teste'.split('s') // ['te','te']
+'teste'.split('s',1) // ['te']
+'teste'.toUpperCase() // 'TESTE'
+'teste'.toLowerCase() // 'teste'
+```
+
+## window.document
+
+```js
+document.body.innerHTML = 'teste'
+document.body.innerHTML += 'teste <br/>'
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Window
+
+- alert
+
+- document
+
+- console
