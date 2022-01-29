@@ -14,7 +14,7 @@ https://www.udemy.com/course/curso-de-javascript-moderno-do-basico-ao-avancado/
 
 <a id='init'></a>
 
-### Seção 2 - JavaScript básico
+## Seção 2 - JavaScript básico
 
 #### Console log
 
@@ -621,35 +621,94 @@ document.body.innerHTML = 'teste'
 document.body.innerHTML += 'teste <br/>'
 ```
 
+## Seção 3 - JavaScript Lógica de programação
 
+### Operações de comparação
 
+-  \> Maior que
+-  < Menor que
+-  \> Maior ou igual que
+-  <= Menor ou igual que
+-  == Igualdade
+-  === Igualdade estrita - Checa valor e tipo (Recomendado)
+-  != Diferença
+-  !== Diferença estrita - Checa valor e tipo (Recomendado)
 
+### Operadores lógicos
 
+- && (and - e)
+- || (or - ou)
+- !  (not - negação)
 
+> And - Para a comparação lógica ser verdadeira, todas as outras comprações devem ser verdadeiras
+> 
+> Or - Para a comparação lógica ser verdadeira, pelo menos uma das comparações devem ser verdadeiras
+> 
+> ! - Nega a operação lógica
 
+Exemplo
 
+```javascript
+//&& - And - Todas devem ser verdadeiras
+0 === 0 && 1 === 1 //true
+0 === 0 && 1 === 2 //false
 
+//|| - Or - Pelo menos uma dever ser verdadeira
+0 === 0 && 1 === 1 //true
+0 === 0 && 1 === 2 //true
+0 === 1 && 1 === 2 //false
 
+//! - Negação
+true //true
+!true //false
 
+false //false
+!false //true
 
+!!false //false
+!!!false //true
+```
 
+### Avaliação de curto circuito (Short-circuit)
 
+> Retorno de valores e operações lógicas
 
+#### Valores que avalião em false
 
+- false
+- 0
+- '' 
+- null
+- undefined
+- NaN
 
+#### Operador && and
 
+> false - Retorna o valor falso quando for encontrado
+> 
+> true - Sempre retornará o ultimo valor avaliado
 
+```javascript
+//false
+'Luiz Otavio' && 0 && 'Maria' // 0 pois 0 avalia em falso
+//true
+'Luiz' && 'Willian' && 'Maria' // Maria - Retorna o ultimo valor avaliado
+```
 
+#### Operador || or
 
+> Retorna o primeiro valore verdadeiro encontrado
+> 
+> Caso não haja valor verdadeiro, retorna o ultimo valor falso encontrado
 
+```javascript
+false || false || 'Willian' || true // 'Willian' - Pois Willian é o primeiro resultado verdadeiro encontrado
+```
 
+Exemplos de validação
+```javascript
+const cor = ''
+const corPadrao = cor || '#fcfcfc'
+corPadrão // '#fcfcfc' - Pois '' é avaliado como false
+```
 
-
-
-### Window
-
-- alert
-
-- document
-
-- console
