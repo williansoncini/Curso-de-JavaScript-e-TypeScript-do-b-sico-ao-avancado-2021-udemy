@@ -57,9 +57,7 @@ let sobreNome = 'Soncini';
 ### const
 
 - Não pode ser inicializada vazia
-
 - Seu valor não pode ser diretamente alterado
-
 - Só existe dentro do escopo informado
 
 ```js
@@ -70,9 +68,7 @@ const dez =  10;
 #### var
 
 - Não utilize var
-
 - Utilize let ou const
-
 - var é global
 
 ```js
@@ -80,6 +76,7 @@ var teste = 'teste'
 ```
 
 ### Tipos de dados primitivos
+
 
 ```js
 const nome = 'string' //string
@@ -91,7 +88,7 @@ const aprovado = true //boolean
 //symbol
 ```
 
-Ver o tipo da variavél (typeof)
+#### Ver o tipo da variavél (typeof)
 
 ```js
 const nome = 'willian'
@@ -391,6 +388,228 @@ Math.pow(2,2) // 4
 ```js
 10 / 0 // Infinity - true
 ```
+
+### Arrays
+
+```javascript
+const users = ['Albert', 'Nikola', 'Leonardo', 1, 2, 3] //Da para colocar oque quiser aqui no meio
+users[0] //Albert
+users[0] = 'Einstein'
+
+```
+
+#### Obter valores do array
+
+```javascript
+const users = ['Albert']
+users[0] //albert
+```
+
+#### Mudando os valores do array
+
+```javascript
+const users  = ['Albert']
+users = ['Nikola']
+users[0] // Nikola
+```
+
+#### Comprimento do array
+
+```javascript
+const users = ['Albert', 'Nikola', 'Leonardo']
+users.length //3
+```
+
+#### Inserir valores
+
+```javascript
+//Inserir no final
+const users = ['Albert', 'Nikola']
+users.push('Leonardo')
+users // ['Albert', 'Nikola', 'Leonardo']
+
+//Inserir no começo
+users.unshift('Thomas')
+users // ['Thomas', 'Albert', 'Nikola', 'Leonardo']
+```
+
+#### Romover valores do array
+
+```javascript
+//Remover do final
+const users = ['Albert', 'Nikola', 'Leonardo']
+users.pop()
+users // ['Albert', 'Nikola']
+
+//Remover do começo
+users.shift()
+users // ['Nikola']
+
+//Remover item deixando espaço vazio
+delete users[0]
+users // [<emptyitem>]
+```
+
+#### Fatiar um array
+
+```js
+const users = ['Albert', 'Nikola', 'Leonardo'] 
+users.slice(0,2) // ['Albert' , 'Nikola']
+```
+
+#### Checkar instancia de array
+
+```javascript
+const users = ['Albert', 'Nikola']
+users instanceof Array //true
+```
+
+### Funções
+
+#### Criar function
+
+> Funções podem ter retornos ou não
+
+```js
+//Escopo básico de função
+function name (parameters) {
+    //logic
+}
+
+// Função com retorno
+function teste(){
+    return alert('teste')
+}
+
+// Função com valores padrões
+function soma(x=10, y=20){
+    return x + y
+}
+```
+
+#### Arrow function
+
+> Simplifica o código
+
+```javascript
+//Escopo básico
+() => {logic}
+
+//example
+//Aqui como é uma linha não precisa de return
+(num) => num ** 0.5
+//or
+num => num ** 0.5
+//or
+const raiz = num => num ** 0.5
+```
+
+### Objetos
+
+#### Criar objeto
+
+```js
+// Criação literal - Dicionario
+const pessoa = {
+    nome: 'Albert',
+    sobrenome: 'Einstein'
+}
+```
+
+#### Fabrica objeto
+
+```js
+// forma padrão
+function criaPessoa (nome, sobrenome){
+    return {
+        nome: nome,
+        sobrenome: sobrenome
+    }
+}
+
+//Se os parametros tiverem os mesmos nomes dos atributos, ficara dessa forma.
+
+//Equivalente a função de cima
+function criaPessoa (nome, sobrenome){
+    return {
+        nome,
+        sobrenome
+    }
+}
+```
+
+#### Objetos e metodos
+
+```javascript
+const pessoa = {
+    nome,
+    sobrenome,
+
+    falar(){
+       console.log('Hello World!') 
+       console.log(`i'm ${this.nome}!`)
+    },
+
+    pular(){
+        console.log(`${this.nome} pulou!`)
+    }
+}
+```
+
+### Valores primitivos e por referencia
+
+#### Valores primitivos (imutaveis)
+
+> Esses valores criam uma nova cópia quando são copiados
+
+- string
+- number
+- boolean
+- undefined
+- null
+- bigint
+- symbol
+
+```javascript
+// Não da para mudar fazendo isso
+let a = 10
+a[0] = 20 //Isso não muda o valor
+a // 10
+```
+
+> Para que os valores por referencia não apontem para o mesmo lugar da memoria, você pode fazer da forma abaixo
+
+```javascript
+//vou usar array, mas funciona da mesma forma se utilizar objeto
+const original = ['Albert', 'Nikolas'] 
+const duplicate = [...users]
+
+//Dessa forma se você alterar duplicate, original não sera alterado
+
+duplicate.push('Leonardo')
+original // ['Albert', 'Nikolas']
+duplicate // ['Albert', 'Nikolas', 'Leonardo']
+```
+
+#### Valores do referencia (mutavel)
+
+> Esses valores apontam para o mesmo lugar da memória quando são copiados
+
+- Array
+- Object
+- Function
+
+```javascript
+//Da para mudar seus valores
+const teste = [1,2,3]
+teste[0] = 50
+teste // [50,2,3]
+```
+
+
+
+
+
 
 
 
