@@ -712,3 +712,142 @@ const corPadrao = cor || '#fcfcfc'
 corPadrão // '#fcfcfc' - Pois '' é avaliado como false
 ```
 
+### Estruturas condicionais
+
+#### if else if e else
+
+- If pode ser utilizado sozinho
+- Para se usar else, é necessário ter um if antes
+- Pode haver vários if else
+- Só pode haver um else na checagem
+- Não é necessário ter else/else if
+
+```javascript
+//estrutura simples
+if (true)
+    return 'verdadeiro'
+else
+    return 'falso'
+
+//estrutua composta
+if (true)
+    return 'verdadeiro'
+else if (false)
+    return 'falso'
+
+//exemplo
+const num = 10
+
+if (num > 9){
+    console.log(num)
+    console.log('Numero maior que 9')
+} else if (num === 10) {
+    console.log(num)
+    console.log('Numero igual a 10')
+} else if (num < 5) {
+    console.log(num)
+    console.log('Numero menor que 5')
+} else {
+    console.log(num)
+    console.log('Numero entre 9 e 5')
+}
+```
+
+#### Operação ternario
+
+> Pode substituir parte do código com condicionais mais simples
+
+```javascript
+condition ? true : false
+//example
+5 > 10 ? 'Maior' : 'Menor'
+```
+
+### Document
+
+#### Seletores
+
+##### Selecionar elemento
+
+```javascript
+document.getElementById('id')
+document.querySelector('#id') //mais moderno
+document.querySelector('.class') //mais moderno
+```
+
+#### Criar elemento
+
+```javascript
+document.createElement('element')
+//example
+const p = document.createElement('p')
+p.classList.add('class-name')
+p.innerHTML += 'text'
+```
+
+#### Inserir dados a elemento
+
+```javascript
+const example = document.querySelector('#id')
+example.innerHTML = 'html'
+```
+
+##### Inserir filhos em um elemento
+
+- appendChild(element)
+
+```javascript
+const example = document.querySelector('#id')
+//criar p
+const p = document.createElement('p')
+//Adicionar class a p
+p.classList.add('class-name')
+//Adicionar p dentro de example
+example.appendChild(p)
+```
+
+### Objeto date
+
+```javascript
+const data = new Date() // Data atual por padrão
+new Date(0) // 01/01/1970 - Timestamp unix ou época unix
+new Date(2019, 3, 20, 15, 14, 27, 500) // 2019/4/20 - 15:14:27:500
+new Date('2019-04-20 20:20:59')
+Date.now() //Data atual em milesimos de segundos
+new Date(Date.now()) // Data atual
+//data.toString()
+```
+
+#### Obter ano, mes, dia, horas, minutos, segundos, milesimos
+
+```js
+const data = new Date()
+data.getFullYear() //ano
+data.getMonth() //mes - Começa do zero
+data.getDate() //dia
+data.getHours() //horas
+data.getMinutes() //minutos
+data.seconds() //segundos
+data.getMilliseconds() //milesimos
+data.getDay() //dia da semana - 0 Domingo - Sábado
+```
+
+### Switchs
+
+```js
+switch (variable){
+    case condition:
+        //logic
+        break
+    case condition:
+        //logic
+        break
+    default:
+        //logic
+        break //Não tem necessidade
+}
+```
+
+
+
+
