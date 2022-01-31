@@ -370,7 +370,7 @@ Math.max(numbers) // 6
 ```javascript
 Math.rendom() //0.56487434
 //gerar aleatório em um intervalo
-const number = Math.random(* (10 - 5) + 5) // numeros entre 5 e 10
+const number = Math.random()* (10 - 5) + 5 // numeros entre 5 e 10
 ```
 
 #### Elevar numero
@@ -493,7 +493,7 @@ function soma(x=10, y=20){
 
 ```javascript
 //Escopo básico
-() => {logic}
+(parameters) => {logic}
 
 //example
 //Aqui como é uma linha não precisa de return
@@ -763,48 +763,6 @@ condition ? true : false
 5 > 10 ? 'Maior' : 'Menor'
 ```
 
-### Document
-
-#### Seletores
-
-##### Selecionar elemento
-
-```javascript
-document.getElementById('id')
-document.querySelector('#id') //mais moderno
-document.querySelector('.class') //mais moderno
-```
-
-#### Criar elemento
-
-```javascript
-document.createElement('element')
-//example
-const p = document.createElement('p')
-p.classList.add('class-name')
-p.innerHTML += 'text'
-```
-
-#### Inserir dados a elemento
-
-```javascript
-const example = document.querySelector('#id')
-example.innerHTML = 'html'
-```
-
-##### Inserir filhos em um elemento
-
-- appendChild(element)
-
-```javascript
-const example = document.querySelector('#id')
-//criar p
-const p = document.createElement('p')
-//Adicionar class a p
-p.classList.add('class-name')
-//Adicionar p dentro de example
-example.appendChild(p)
-```
 
 ### Objeto date
 
@@ -832,6 +790,18 @@ data.getMilliseconds() //milesimos
 data.getDay() //dia da semana - 0 Domingo - Sábado
 ```
 
+#### Formatar data
+
+```javascript
+const data = new Date()
+data.toLocaleTimeString('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+}) // 00/00/00 00:00:00
+```
+
 ### Switchs
 
 ```js
@@ -848,6 +818,311 @@ switch (variable){
 }
 ```
 
+### Atribuição via desestruturação (Arrays)
+
+```javascript
+//exemplo simples
+let a
+let b
+let c
+[a,b,c] = [1,2,3]
+a //1
+b //2
+c //3
+
+//desestruturação
+const numbers = [1,2,3,4]
+const [first, second, ...rest] = numbers
+first // 1
+second // 2
+rest // [3, 4]
+
+//pulando valores
+const [number1 , , number3] = numbers
+number1 // 1
+number3 // 3
+```
+
+### Atribuição via desestruturação (Objetos)
+
+```javascript
+const awesomePeople = {
+    name: 'Albert',
+    surname: 'Einstein',
+}
+
+const {name, surname} = awesomePeople
+// com valores padrões, para caso os valores não existam no objeto
+const {name='Albert', surname='Einstein'} = awesomePeople
+//mudar o nome das variaveis para não seguir os nomes dos atributos dos objetos
+const {name: sayYourName, surname: sayYourName} = awesomePeople
+sayYourName // 'Albert'
+sayYourSurname // 'Einstein'
+
+//another example
+
+const people = {
+    name: 'name',
+    address: {
+        street: 'california',
+        number: 124
+    },
+    age: 10
+}
+
+const {name, address:{street}, ...rest} = people
+name // 'name'
+street // 'california'
+rest // age: 10
+```
 
 
+### Estrutura de repetição
 
+- For clássico - Geralmente com iteráveis (Array ou string)
+- For in - Retorna o indice ou chave (string, array, objetos)
+- For of - Retorna o valor (iteráveis, arrays ou string)
+
+#### For
+
+```javascript
+for (let i = 0; i > length; i++){
+    //logic
+}
+```
+
+#### For in
+
+```javascript
+const names = ['Albert', 'Nikola', 'Thomas']
+for (let index in names){
+    // first enter
+    index //1
+    // Second enter
+    index // 2
+}
+
+const people {
+    name: 'Albert',
+    surname: 'Einstein'
+}
+
+for (let key in people){
+    //first enter
+    console.log(people[key]) // Albert
+    //second enter
+    console.log(people[key]) //Einstein
+}
+```
+
+#### For of
+
+```javascript
+for (let value of list){
+    //logic
+}
+
+//example
+const peoples = [
+    {name: 'Albert'},
+    {name: 'Nikola'},
+    {name: 'Thomas'},
+]
+
+for (let people of peoples){
+    //first
+    people // {name: Albert}
+    //Second
+    people // {name: Nikoa}
+    //third
+    people // {name: Thomas}
+}
+
+```
+
+### DOM - Document object model
+
+> Estrutura básica do DOM
+> 
+> Window > Document > Html > Head | Body
+
+> O Dom possui uma api que nos permite interagir com ele. Podemos criar e modificar os dados que estão dentro dele
+
+#### Seletores
+
+##### Selecionar elemento
+
+```javascript
+document.getElementById('id')
+document.querySelector('#id') //mais moderno
+document.querySelector('.class') //mais moderno
+```
+
+##### Selecionar mais de um elemento
+```javascript
+documet.querySelectorAll('element')
+// Example
+const elements = document.querySelectorAll('p')
+elements // NodeArray p's
+
+//another example
+const container = document.querySelector('.container')
+container.querySelectorAll('p') // Get all p's inside in container
+```
+
+#### Criar elemento
+
+```javascript
+document.createElement('element')
+//example
+const p = document.createElement('p')
+p.classList.add('class-name')
+p.innerHTML += 'text'
+
+//Exemplo de criação de nó de texto
+const textNode = document.createTextNode('text')
+p.appedChild(textNode) // inserir o texto na tag p
+```
+
+#### Inserir dados a elemento
+
+```javascript
+const example = document.querySelector('#id')
+example.innerHTML = 'html'
+axample.innerText = 'text'
+```
+
+##### Inserir filhos em um elemento
+
+- appendChild(element)
+
+```javascript
+const example = document.querySelector('#id')
+//criar p
+const p = document.createElement('p')
+//Adicionar class a p
+p.classList.add('class-name')
+//Adicionar p dentro de example
+example.appendChild(p)
+```
+
+##### Pegar estilos de elementos
+
+```javascript
+const styleBody = getComputedStyle(document.body) // get all styles of body
+
+//get background of body
+
+styleBody.backgroundColor // background of body 
+```
+
+##### Mudar estilos de um elemento
+
+```javascript
+//Exemplo de mudança de cor
+const element = document.querySelector('.class')
+element.style.backgroundColor = 'red' // mudar a cor
+```
+
+### While do while
+
+#### While
+
+> Checa a condição e depois entra no laço de repetição
+
+```javascript
+while (i <= 10){
+    //logic
+    i++;
+}
+```
+
+#### Do while
+
+> Entra pelo menos uma vez no laço e depois checa a condição
+
+```javascript
+do {
+    //logic
+} while (condition)
+```
+
+### Break e continue
+
+> Controle do laço. Funciona em todos os laços
+
+- Break - Parar o laço
+- Continue - Passar o laço para a próxima entrada
+
+#### Continue
+
+```javascript
+const nums = [1,2,3]
+
+for (let num of nums){
+    //pulando o console.log do número dois
+    if (num === 2)
+        continue
+    console.log(num)
+}
+```
+
+#### Break
+
+```javascript
+const nums = [1,2,3]
+
+for (let num of nums){
+    //Parando o laço quando encontrar o número dois
+    if (num === 2)
+        break
+}
+```
+
+### Try Catch finally
+
+```javascript
+try{
+    // Execuçãoq uando não há erros
+} catch (err){
+    // Execução caso haja erro
+} finally{
+    // Sempre executado
+}
+```
+
+#### Errors 
+
+```javascript
+throw new Error('message')
+// Example
+const number = 'text'
+if (typeof number !== 'number')
+    throw new Error('Precisa ser número')
+```
+
+### Interval e Time outs
+
+#### setInterval
+
+> Executa função em tempos definidos
+
+```javascript
+setInterval(function, milliseconds)
+//example
+setInterval(() => console.log('teste'), 1000)
+```
+
+#### setTimeout
+
+> Define um tempo de expiração para um intervalo
+
+```javascript
+//Criando uma função para executar em um intervalo
+const interval = setInterval(() => console.log('teste'), 1000)
+
+//Definindo o intervalo de 5 segundos para a função
+setTimeout(() => {
+    clearInterval(interval)
+}, 5000)
+```
