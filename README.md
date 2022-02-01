@@ -968,6 +968,66 @@ elements // NodeArray p's
 //another example
 const container = document.querySelector('.container')
 container.querySelectorAll('p') // Get all p's inside in container
+
+//Select with contains
+container.classList.container('class')
+```
+
+##### Buscar pai de um elemento
+
+```javascript
+const element = document.qurySelector('p')
+element.parentElement // elemento pai
+```
+
+#### Remover elmento
+
+```javascript
+const element = document.querySelector('element')
+element.remove()
+```
+
+##### remover pai do elemento
+
+```javascript
+const element = document.querySelector('element')
+element.parentElement.remove()
+```
+
+#### Pegar o texto de um elemento
+
+```javascript
+const element = document.querySelector('element')
+element.innerText //Return text
+```
+
+
+#### Eventos e listeners
+
+##### Adicionar listener a um elemento
+
+```js
+const input = document.querySelector('.input')
+input.addEventListener('event', function(event){
+  //logic  
+})
+
+//Example
+const input = document.querySelector('.input')
+input.addEventListener('click', () => console.log('teste'))
+```
+
+##### Selecionar element via evento
+
+```javascript
+document.addEventLister('click', (event) => {
+    const element = event.target
+})
+```
+
+```js
+const container = document.querySelector('.container')
+
 ```
 
 #### Criar elemento
@@ -1125,4 +1185,51 @@ const interval = setInterval(() => console.log('teste'), 1000)
 setTimeout(() => {
     clearInterval(interval)
 }, 5000)
+```
+
+### JSON
+
+#### Passar para json
+
+```javascript
+const tasks = [1,2,3,4]
+const tasksJson = JSON.stringify(tasks)
+tasksJson = [] // '[1,2,3,4]'
+```
+
+#### Passar Json para um objeto JavaScript
+
+```javascript
+const tasks = [1,2,3,4]
+const tasksJson = JSON.stringify(tasks)
+tasksJson = [] // '[1,2,3,4]'
+
+const realTasks = JSON.parse(tasksJson)
+realTasks // [1,2,3,4]
+```
+
+### LocalStorage
+
+> Base de dados do navegdor
+
+#### Salvar no localStorage
+
+```javascript
+localstorage.setItem('name', string)
+//example
+const array = [1,2,3]
+const arrayJson = JSON.stringify(array)
+localStorage.setItem('array', arrayJson)
+```
+
+#### Buscar dados
+
+```javascript
+localStorage.getItem('name-item')
+```
+
+#### Deletar do localStorage
+
+```javascript
+ 
 ```
