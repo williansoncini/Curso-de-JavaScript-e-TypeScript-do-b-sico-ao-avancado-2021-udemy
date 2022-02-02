@@ -470,7 +470,9 @@ users instanceof Array //true
 
 > Funções podem ter retornos ou não
 
+
 ```js
+//Quando se declar uma função da maneira abaix, a função poderá ser chamada em qualquer lugar do código - Efeito Hosting
 //Escopo básico de função
 function name (parameters) {
     //logic
@@ -481,10 +483,7 @@ function teste(){
     return alert('teste')
 }
 
-// Função com valores padrões
-function soma(x=10, y=20){
-    return x + y
-}
+
 ```
 
 #### Arrow function
@@ -502,6 +501,151 @@ function soma(x=10, y=20){
 num => num ** 0.5
 //or
 const raiz = num => num ** 0.5
+```
+
+#### Parametros
+
+```javascript
+//Pegar parametro via desestruturação de objeto
+const obj = { name: 'Albert', surname: 'Einstein'}
+
+function getName({name}) {
+    console.log(name)
+}
+getName(obj)
+
+//Pegar valores via desestruturação de um array
+const array = [1,2,3,4]
+
+const getThreeFirstNumbers = ([num1,num2,num3]) => {
+    console.log(num1,num2,num3)
+}
+getThreeFirstNumbers(array)
+
+// Função com valores padrões. Funciona também para desestruturação
+function soma(x=10, y=20){
+    return x + y
+}
+
+//Rest operator
+const a = 1
+const b = 2
+const c = 3
+const d = 4
+const e = 5
+
+// O parametro de resto deve ser o ultimo parametro da funcão
+function example(a,b,...rest){
+    console.log(a,b,rest)// 1 2 [3,4,5]
+}
+
+example(a,b,c,d,e)
+```
+
+#### Funções podem ser guardadas dentro de uma variavel - Function expression
+
+```javascript
+const sayHello = function () {
+    console.log('Hello')
+}
+// or
+const sayHello = () => console.log('Hello')
+```
+
+#### Passando função como parametro
+
+```javascript
+const sayHello = () console.log('Hello')
+const talking = (sayHello) => sayHello()
+```
+
+### Arguments
+
+#### Arguments em functions 
+
+```javascript
+//Funciona apenas em function e não em arrow function. Para fazer funcionar de forma semelhante em  arrow function, utilize o rest operator
+function soma (){
+    let total
+    //dentro de arguments, se encontra todos os valores
+    for (argument of arguments){
+        total += argument
+    }
+    return total
+}
+//Vai somar todos esses valores 
+soma(1,2,3,4,5,123,123,4,56,7,23,8,)
+
+```
+
+### Closures - Function dentro de function
+
+> Habilidade da função acessar seu escopo léxico (Onde foi definida)
+
+```javascript
+function mutiplica(multiplicador){
+    return function(n){
+        return n * multiplicador
+    }
+}
+
+const duplica = multiplica(2) // Recebe a função dentro da função, por conta do return
+duplica(4) // 8
+```
+
+### Função de callback
+
+> Passar funções para ser executadas após outras funções. É bem semelhante ao exemplo mais acima
+
+```javascript
+const first = (callback) => {
+    console.log('first')
+    if (callback)
+        callback()
+}
+const second = (callback) => {
+    console.log('second')
+    if (callback)
+        callback()
+}
+const third = (callback) => {
+    console.log('third')
+    if (callback)
+        callback()
+}
+
+first(() => second(() => third()))
+// first second third
+```
+
+### IIFE - Immediately invoked function expression
+
+> A função é executada assim que é invocada
+
+```javascript
+(function (parameters){
+    console.log('teste')
+})(parameters);
+//teste
+```
+
+### Factory Functions
+
+> Funções fabricas
+
+```javascript
+const createPeople = (name, surname) {
+    return {
+        name,
+        surname,
+        sayHello: () => {
+            return `Hello! I'm ${this.name}.`
+        }
+    }
+}
+
+const people = createPeople()
+people.sayHello()
 ```
 
 ### Objetos
@@ -605,14 +749,6 @@ const teste = [1,2,3]
 teste[0] = 50
 teste // [50,2,3]
 ```
-
-
-
-
-
-
-
-
 
 ## window.document
 
@@ -763,7 +899,6 @@ condition ? true : false
 5 > 10 ? 'Maior' : 'Menor'
 ```
 
-
 ### Objeto date
 
 ```javascript
@@ -875,7 +1010,6 @@ name // 'name'
 street // 'california'
 rest // age: 10
 ```
-
 
 ### Estrutura de repetição
 
@@ -1000,7 +1134,6 @@ element.parentElement.remove()
 const element = document.querySelector('element')
 element.innerText //Return text
 ```
-
 
 #### Eventos e listeners
 
