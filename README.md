@@ -391,6 +391,8 @@ Math.pow(2,2) // 4
 
 ### Arrays
 
+> Deve tomar cuidado com atribuições diretas, isso ocasiona em ponteiros. Então tudo oque você fizer em uma variavel ira refletir na outra. Para isso existem maneiras corretas descritas abaixo para fazer a atribuição de valores.
+
 ```javascript
 const users = ['Albert', 'Nikola', 'Leonardo', 1, 2, 3] //Da para colocar oque quiser aqui no meio
 users[0] //Albert
@@ -409,8 +411,16 @@ users[0] //albert
 
 ```javascript
 const users  = ['Albert']
-users = ['Nikola']
+users[0] = ['Nikola']
 users[0] // Nikola
+```
+
+#### Passando valores entre arrays
+
+```js
+const array_1 = [1,2,3]
+const array_2 = [...array_1] // maneira correta de se fazer
+array_2 // [1,2,3]
 ```
 
 #### Comprimento do array
@@ -438,10 +448,12 @@ users // ['Thomas', 'Albert', 'Nikola', 'Leonardo']
 ```javascript
 //Remover do final
 const users = ['Albert', 'Nikola', 'Leonardo']
+// pop retorna o valore removido
 users.pop()
 users // ['Albert', 'Nikola']
 
 //Remover do começo
+//shift retorna o valore removido
 users.shift()
 users // ['Nikola']
 
@@ -455,6 +467,7 @@ users // [<emptyitem>]
 ```js
 const users = ['Albert', 'Nikola', 'Leonardo'] 
 users.slice(0,2) // ['Albert' , 'Nikola']
+users.slice(0,-1) // ['Albert', 'Nikola', 'Leonardo'] 
 ```
 
 #### Checkar instancia de array
@@ -469,7 +482,6 @@ users instanceof Array //true
 #### Criar function
 
 > Funções podem ter retornos ou não
-
 
 ```js
 //Quando se declar uma função da maneira abaix, a função poderá ser chamada em qualquer lugar do código - Efeito Hosting
@@ -629,25 +641,6 @@ first(() => second(() => third()))
 //teste
 ```
 
-### Factory Functions
-
-> Funções fabricas
-
-```javascript
-const createPeople = (name, surname) {
-    return {
-        name,
-        surname,
-        sayHello: () => {
-            return `Hello! I'm ${this.name}.`
-        }
-    }
-}
-
-const people = createPeople()
-people.sayHello()
-```
-
 ### Objetos
 
 #### Criar objeto
@@ -680,6 +673,141 @@ function criaPessoa (nome, sobrenome){
         sobrenome
     }
 }
+```
+
+### Factory Functions
+
+> Funções fabricas
+
+```javascript
+const createPeople = (name, surname) => {
+    return {
+        name,
+        surname,
+        sayHello: () => {
+            //This sempre se refere ao objeto chamadodd
+            return `Hello! I'm ${this.name}.`
+        }
+    }
+}
+
+const people = createPeople()
+people.sayHello()
+
+//Utilizadno getter
+createPeople = (name, surname, age) => {
+    name,
+    surname,
+    age,
+    get completeName(){
+        return name + surname;
+    }
+}
+
+const people = createPeople('Albert', 'Einstein', 76 )
+people.compleName // Albert Einstein
+
+//Utilizando setter
+createPeople = (name) => {
+    return {
+        name,
+        surname: '',
+        set setSurname(surname){
+            this.surname = surname
+        }
+    }
+}
+
+const people = createPeople('Albert')
+people.setSurname = 'Einstein'
+people.surname // Einstein
+
+```
+
+### Contructor functions
+
+> É interessante iniciar com letra maiuscula por convenção.
+
+```javascript
+function Pessoa(nome, sobrenome) {
+    //Atributos privados
+    const id = 1;
+    //metodos privados
+    const metodo_privado = () => {}
+    //Atributos publicos
+    this.nome = nome;
+    this.sobrenome = sobrenome;
+
+    this.metodo = function (){
+
+    };
+}
+
+const pessoa1 = new Pessoa('Albert', 'Einstein')
+const pessoa2 = new Pessoa('Nikola', 'Tesla')
+```
+
+### Funções recursivas
+
+> Função que chama ela mesma
+
+```javascript
+//Fará o laço de repetição 5 vezes
+const recursive = (max) => {
+    if (max >= 5)
+        return
+    max++;
+    recursive(max)
+}
+recursive(0)
+```
+
+### Funções geradoras
+
+> Entrega um valor por chamada. Quando se utilizar [return] a função geradora será parada
+
+```javascript
+function* geradora1() {
+    // ... Lógica
+    yield 'valor1'
+    // ... Lógica
+    yield 'valor2'
+    // ... Lógica
+    yield 'valor3'
+}
+
+const valorGerado = geradora1()
+valorGerado.next() // valor 1
+valorGerado.next() // valor 2
+valorGerado.next() // valor 3
+
+//Exemplo de delegação
+function geradora2(){
+    //Delega a primeira chamada a geradora 1
+    yield* geradora1()
+    yield 4
+    yield 5
+    yield 6
+}
+
+//Consultar os valores da função geradora
+const valores = geradora2()
+for (value of valores){
+    console.log(valores)
+}
+
+//Utilizando chamadas de funções em sequencia com funções geradoras
+const function_1 = () => console.log('function 1')
+const function_2 = () => console.log('function 2')
+
+function functionsSequence(){
+    yield function_1()
+    yield function_2()
+}
+
+const callInSequence = functionsSequence()
+callInSequence.next() //function_1
+callInSequence.next() //function_2
 ```
 
 #### Objetos e metodos
@@ -1366,3 +1494,4 @@ localStorage.getItem('name-item')
 ```javascript
  
 ```
+
