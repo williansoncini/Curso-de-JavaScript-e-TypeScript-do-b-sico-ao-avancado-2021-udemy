@@ -250,6 +250,12 @@ confirm('mensagem')
 umaString.concat('string')
 ```
 
+#### Endwith
+
+```javascript
+'string'.endsWith('a')
+```
+
 #### index
 
 ##### indexOf
@@ -476,6 +482,136 @@ users.slice(0,-1) // ['Albert', 'Nikola', 'Leonardo']
 const users = ['Albert', 'Nikola']
 users instanceof Array //true
 ```
+
+#### Metodos do array
+
+##### Splice
+
+```javascript
+// array.splice(indice, delete, addElement, addElement, addElement)
+const array = [1,2,3,4,5]
+const removed = array.splice(3,2)
+array // [1,2,3]
+removed // [4,5]
+
+//example with MAX_VALUE
+const array = [1,2,3,4,5]
+const removed = array.splice(2, Number.MAX_VALUE)
+removed // [3,4,5]
+
+//add value
+const array = [1,2,3,4,5]
+array.splice(3,0,'value')
+array // [ 1, 2, 3, 'value', 4, 5 ]
+
+//alter value and add value
+const array = [1,2,3,4,5]
+array.splice(3,2,'Albert', 'Nikola')
+array // [1,2,3,'Albert', 'Nikola']
+```
+
+##### Concatenar array
+
+```javascript
+const array1 = [1,2,3,4]
+const array2 = [5,6,7,8]
+
+array1.concat(array2) // [1,2,3,4,5,6,7,8 ]
+```
+
+##### Filtrar o array
+
+> Sempre retorna um array
+
+```javascript
+//classic form
+const array = [1,2,3,4,5]
+
+function callBackFilter(value, index, array){
+    return value > 2; 
+}
+
+const newArray = array.filter(callBackFilter)
+newArray // [3,4,5]
+
+//elegant form
+const array = [1,2,3,4,5]
+
+const newArray = array.filter(value => value > 2)
+newArray // [3,4,5]
+
+//Da para fazer assim também
+const array = [1,2,3,4,5]
+
+const newArray = array.filter((value, index, array) => {
+    // use value index array logic
+    //return 
+})
+```
+
+##### Mapear o array
+
+> Sempre retorna um array
+
+```javascript
+const array = [1,2,3]
+
+array.map((value,index,array) => {
+    return value
+})
+
+// example - Double value
+const array = [1,2,3]
+const newArray = array.map(value => value * 2)
+newArray // [2,4,6]
+
+// example - Return just name of object
+const peoples = [
+    {name: 'Albert', surname: 'Einstein'},
+    {name: 'Nikola', surname: 'Tesla'}
+]
+
+const arrayWithNames = peoples.map(value => value.name)
+arrayWithNames // ['Albert', 'Nikola']
+```
+
+##### Reduce
+
+> Reduzir array a um elemento
+
+```javascript
+const array = [1,2,3]
+const total = array.reduce(function(acumulador, valor, indice, array){
+    acumulador += valor
+    return acumulador
+})
+total // 6
+
+// example - 
+const array = [1,2,3]
+const anotherArray = array.reduce(function(acumulator, value ){
+    acumulador.push(value)
+    return acumulador
+}, [] )//initial value of acumulator)
+anotherArray // [1,2,3]
+
+//example - return most old
+const pessoas = [
+    {name: 'Albert', age: 76},
+    {name: 'Nikola', age: 86},
+    {name: 'Isaac', age: 84}
+]
+
+const maisVelha = pessoas.reduce(function(acumulador, valor){
+    // O acumulador sempre inicia pegando o valor da primeira posição
+    // O 'Valor' sempre inicia pegando o valor da segunda posição
+    if (acumulador.age > valor.age) return acumulador
+    return valor
+})
+
+maisVelha // {name: Nikola, age: 86}
+```
+
 
 ### Funções
 
