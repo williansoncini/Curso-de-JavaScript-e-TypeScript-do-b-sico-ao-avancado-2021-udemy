@@ -57,7 +57,7 @@ let sobreNome = 'Soncini';
 ### const
 
 - Não pode ser inicializada vazia
-- Seu valor não pode ser diretamente alterado
+- Seu valor não pode ser diretamente alterado (Seu endereço de memória não pode ser alterado)
 - Só existe dentro do escopo informado
 
 ```js
@@ -612,6 +612,16 @@ const maisVelha = pessoas.reduce(function(acumulador, valor){
 maisVelha // {name: Nikola, age: 86}
 ```
 
+##### Foreach
+
+> Apenas passa sobre o array, assim como um for clássico
+
+```javascript
+const array = [1,2,3]
+array.forEach((value, index, array) => {
+    //logic
+})
+```
 
 ### Funções
 
@@ -630,8 +640,6 @@ function name (parameters) {
 function teste(){
     return alert('teste')
 }
-
-
 ```
 
 #### Arrow function
@@ -777,127 +785,6 @@ first(() => second(() => third()))
 //teste
 ```
 
-### Objetos
-
-#### Criar objeto
-
-```js
-// Criação literal - Dicionario
-const pessoa = {
-    nome: 'Albert',
-    sobrenome: 'Einstein'
-}
-```
-
-#### Fabrica objeto
-
-```js
-// forma padrão
-function criaPessoa (nome, sobrenome){
-    return {
-        nome: nome,
-        sobrenome: sobrenome
-    }
-}
-
-//Se os parametros tiverem os mesmos nomes dos atributos, ficara dessa forma.
-
-//Equivalente a função de cima
-function criaPessoa (nome, sobrenome){
-    return {
-        nome,
-        sobrenome
-    }
-}
-```
-
-### Factory Functions
-
-> Funções fabricas
-
-```javascript
-const createPeople = (name, surname) => {
-    return {
-        name,
-        surname,
-        sayHello: () => {
-            //This sempre se refere ao objeto chamadodd
-            return `Hello! I'm ${this.name}.`
-        }
-    }
-}
-
-const people = createPeople()
-people.sayHello()
-
-//Utilizadno getter
-createPeople = (name, surname, age) => {
-    name,
-    surname,
-    age,
-    get completeName(){
-        return name + surname;
-    }
-}
-
-const people = createPeople('Albert', 'Einstein', 76 )
-people.compleName // Albert Einstein
-
-//Utilizando setter
-createPeople = (name) => {
-    return {
-        name,
-        surname: '',
-        set setSurname(surname){
-            this.surname = surname
-        }
-    }
-}
-
-const people = createPeople('Albert')
-people.setSurname = 'Einstein'
-people.surname // Einstein
-
-```
-
-### Contructor functions
-
-> É interessante iniciar com letra maiuscula por convenção.
-
-```javascript
-function Pessoa(nome, sobrenome) {
-    //Atributos privados
-    const id = 1;
-    //metodos privados
-    const metodo_privado = () => {}
-    //Atributos publicos
-    this.nome = nome;
-    this.sobrenome = sobrenome;
-
-    this.metodo = function (){
-
-    };
-}
-
-const pessoa1 = new Pessoa('Albert', 'Einstein')
-const pessoa2 = new Pessoa('Nikola', 'Tesla')
-```
-
-### Funções recursivas
-
-> Função que chama ela mesma
-
-```javascript
-//Fará o laço de repetição 5 vezes
-const recursive = (max) => {
-    if (max >= 5)
-        return
-    max++;
-    recursive(max)
-}
-recursive(0)
-```
-
 ### Funções geradoras
 
 > Entrega um valor por chamada. Quando se utilizar [return] a função geradora será parada
@@ -946,7 +833,172 @@ callInSequence.next() //function_1
 callInSequence.next() //function_2
 ```
 
-#### Objetos e metodos
+### Funções recursivas
+
+> Função que chama ela mesma
+
+```javascript
+//Fará o laço de repetição 5 vezes
+const recursive = (max) => {
+    if (max >= 5)
+        return
+    max++;
+    recursive(max)
+}
+recursive(0)
+```
+
+### Objetos
+
+> Lembrete - Quando for criar um metodo que se repete em cada objeto, é bem mais performatico utilizar o prototipe
+
+#### Criar objeto
+
+```js
+// Criação literal - Dicionario
+const pessoa = {
+    nome: 'Albert',
+    sobrenome: 'Einstein'
+}
+
+// or
+
+const pessoa = new Object()
+pessoa.nome = "Albert"
+pessoa.sobrenome = "Einstein"
+```
+
+#### Acessar valores do objeto
+
+```javascript
+const people = {
+    name: 'Albert',
+    surname: 'Einstein'
+}
+
+people.name // Albert
+people['name'] // Albert
+```
+
+#### Fabrica objeto
+
+```js
+// forma padrão
+function criaPessoa (name, surname){
+    return {
+        name,
+        surname,
+        getAllName: () => `${this.name} ${this.surname}`
+    }
+}
+
+//Se os parametros tiverem os mesmos nomes dos atributos, ficara dessa forma.
+
+//Equivalente a função de cima
+function criaPessoa (nome, sobrenome){
+    return {
+        nome,
+        sobrenome
+    }
+}
+```
+
+##### Factory Functions
+
+> Funções fabricas
+
+```javascript
+const createPeople = (name, surname) => {
+    return {
+        name,
+        surname,
+        sayHello: () => {
+            //This sempre se refere ao objeto chamadodd
+            return `Hello! I'm ${this.name}.`
+        }
+    }
+}
+
+const people = createPeople()
+people.sayHello()
+
+//Utilizadno getter
+createPeople = (name, surname, age) => {
+    name,
+    surname,
+    age,
+    get completeName(){
+        return `${this.name} ${this.surname}`;
+    }
+}
+
+const people = createPeople('Albert', 'Einstein', 76 )
+people.compleName // Albert Einstein
+
+//Utilizando setter
+createPeople = (name) => {
+    return {
+        name,
+        surname: '',
+        set setSurname(surname){
+            this.surname = surname
+        }
+    }
+}
+
+const people = createPeople('Albert')
+people.setSurname = 'Einstein'
+people.surname // Einstein
+
+```
+
+##### Contructor functions
+
+> É interessante iniciar com letra maiuscula por convenção.
+
+```javascript
+function Pessoa(nome, sobrenome) {
+    //Atributos privados
+    const id = 1;
+    //metodos privados
+    const metodo_privado = () => {}
+    //Atributos publicos
+    this.nome = nome;
+    this.sobrenome = sobrenome;
+
+    this.metodo = function (){
+
+    };
+}
+
+const pessoa1 = new Pessoa('Albert', 'Einstein')
+const pessoa2 = new Pessoa('Nikola', 'Tesla')
+```
+
+#### Congelar objeto
+
+> Não permitir alteração no objeto
+
+```javascript
+//Freeze in creation
+function People(name, surname) {
+    this.name = name
+    this.surname = surname
+
+    Object.freeze(this)
+}
+
+//Freeze after creation
+function People(name, surname) {
+    this.name = name
+    this.surname = surname
+}
+
+const people = new People('Albert', 'Einstein')
+Object.freeze(people)
+```
+
+#### Funções no objeto
 
 ```javascript
 const pessoa = {
@@ -962,6 +1014,160 @@ const pessoa = {
         console.log(`${this.nome} pulou!`)
     }
 }
+```
+
+#### Propriedades do objeto 
+
+```js
+function People (name, surname){
+    this.name = name
+    this.surname = surname
+
+    //example 1 - just one atribute
+    Object.defineProperty(this, 'surname', {
+        enumerable: true, // show key
+        value: surname, // show value
+        writable: false, // update
+        configurable: true, // reset configurations
+    })
+    //example 2 - all altributes
+    Object.defineProperties(this, {
+        name : {
+            enumerable: true, // show key
+            value: surname, // show value
+            writable: false, // update
+            configurable: true, // reset configurations
+        }
+        surname: {
+            enumerable: true, // show key
+            value: surname, // show value
+            writable: false, // update
+            configurable: true, // reset configurations
+        }
+    })
+}
+
+const people = new People('Albert', 'Einstein')
+Object.keys(people) // name, surname
+```
+
+#### Propiedades do objeto com getters e setters
+
+```javascript
+function People (name, surname){
+    this.name = name
+    // let surname = surname
+    Object.defineProperty(this, 'surname', {
+        enumrable: true,
+        configurable: true,
+        get: function() {
+            return surname
+        },
+        set: function(value) {
+            if(typeof value !== 'string')
+                throw new TypeError('message')
+
+            surname = value
+        }
+    })
+}
+
+const people = new People('Albert', 'Einstein')
+people.surname // 'Einstein'
+people.surname = 1 // Error :)
+```
+
+#### Metodos uteis para objetos
+
+##### Copiar objeto
+
+```javascript
+const people = {name: 'Albert', surname: 'Einstein'}
+//example 1
+const copyPeople = {...people, age: 76}
+//example 2
+const copyPeople = Object.assign({}, people, {age : 76})
+
+people // {name: 'Albert', surname: 'Einstein'}
+copyPeople // {name: 'Albert', surname: 'Einstein', age: 76}
+```
+
+##### Checar como estão as propiedades do objeto
+
+```javascript
+const people = {name: 'Albert', surname: 'Einstein'}
+Object.getOwnPropertyDescriptor(people, 'name') /*
+    {value: 'name',
+    writable: true,
+    enumerable: true,
+    configurable: true}
+*/
+```
+
+#### Pegar o valor do objeto
+
+```javascript
+const people = {name: 'Albert', surname: 'Einstein'}
+
+Object.values(people) // ['Albert', 'Einstein']
+```
+
+##### Pegar valor do objeto com entries
+
+> Retorna um array com os valores do objeto
+
+```javascript
+const people = {name: 'Albert', surname: 'Einstein'}
+console.log(Object.entries(people)) // ['name', 'Albert'], ['surname', 'Einstein']
+```
+
+### Prototypes 
+
+> Cara é muito bom! Cria uma função apenas para todos os objetos. Mantendo assim uma melhor performance.
+
+```javascript
+function People(name, surname){
+    this.name = name
+    this.surname = surname
+}
+
+People.prototype.completeName = function(){
+    return `${this.name} ${this.surname}`
+}
+```
+
+#### Manipulação de prototype
+
+```js
+const object_A = { keyExample_A: 'ExampleA'}
+const object_B = { keyExample_B: 'ExampleB'}
+
+// Object_A will be prototype of object_B
+Object.setPrototypeOf(object_B, object_A)
+object_B.keyExample_A // 'ExampleA'
+```
+
+#### Criando objeto pelo prototype
+
+```javascript
+function People(name) {
+    this.name = name
+    People.prototype.getName = function (){
+        return `Here return name`
+    }
+}
+
+const example = Object.create(People.prototype, {
+    newKey: {
+        writable : true,
+        configurable: true,
+        enumerable : true,
+        value: 'example'
+    }
+})
+
+example // People {newKey: 'Example'}
+example.getName() // Here return name
 ```
 
 ### Valores primitivos e por referencia
