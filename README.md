@@ -2,6 +2,7 @@
 
 ## Este é meu primeiro curso de JavaScript, então vou lascar algumas notas de aulas logo abaixo
 
+
 Caso você se interesse pelo curso, ele foi feito via Udemy, pelo link 
 
 https://www.udemy.com/course/curso-de-javascript-moderno-do-basico-ao-avancado/
@@ -1168,6 +1169,146 @@ const example = Object.create(People.prototype, {
 
 example // People {newKey: 'Example'}
 example.getName() // Here return name
+```
+
+#### Herança
+
+```javascript
+//example
+function Produto(nome, preco){
+    this.nome = nome
+    this.preco = preco
+}
+Produto.prototype.aumento = function(quantia){
+    return this.preco += quantia
+}
+
+function Camiseta(nome, preco, cor){
+    //Onde a herança acontece
+    Produto.call(this, nome, preco)
+    this.cor = cor
+}
+//Setar o mesmo prototype do produto
+Camiseta.prototype = Object.create(Produto.prototype)
+// Para setar o objeto como uma Camiseta, senão vai ficar como produto
+Camiseta.prototype.constructor = Camiseta
+// Camiseta se torna uma especialização de produto
+
+const camiseta = new Camiseta('Camiseta', 100, 'Azul')
+camiseta.aumento(10)
+camiseta.preco // 110
+//Para reescrever um metodo do pai
+Camiseta.prototype.aumento = function(parameters){
+    //logic
+    //Quando aumento for chamado, ele fará oque essa função pedir, em vez de fazer oque o pai está passando
+}
+```
+
+#### Polimorfismo
+
+> Fazer uma classe filha se comportar de forma diferente do pai (Sobreescrita de métodos)
+
+#### Factory Functions + Prototype
+
+```javascript
+function createGenius(name, surname) {
+    const pessoaPrototype = {
+        sayHello (){
+            console.log('Hello')
+        }
+    }
+
+    return Object.create(pessoaPrototype, {
+        name: {value: name},
+        surname: {value :surname}
+    })
+    const people = createGenius('Albert', 'Einstein')
+}
+```
+
+##### Composing / Mixing 
+
+```javascript
+const sayHello = {
+    sayHello () {
+        console.log(`Hello i'm ${this.name}!`)
+    }
+}
+
+const peoplePrototype = {... sayHello}
+// const peoplePrototype =  Object.assign({}, sayHello)
+
+function createGenius(name, surname) {
+    return Object.create(peoplePrototype, {
+        name: {value: name},
+        surname: {value: surname}
+    })
+}
+
+const people = createGenius('Albert', 'Einstein')
+```
+
+#### Object map
+
+```javascript
+const genius = [
+    {name: 'Albert', surname:'Einstein'},
+    {name: 'Nikola', surname: 'Tesla'},
+    {name: 'Charles', surname: 'Darwin'}
+]
+
+const newGenius = new Map()
+for (const people of genius) {
+    const {name} = people
+    newGenius.set(name, {...people})
+}
+console.log(newGenius)
+console.log(newGenius.get('Albert'))
+```
+
+### Class
+
+> Cara que maravilha linkar os prototypes aqui
+
+```javascript
+class People {
+    constructor(name, surname){
+        this.name = name,
+        this.surname = surname
+    }
+
+    sayHello(){
+        console.log(`Hello i'm ${this.name}!`)
+    }
+}
+const people = new People()
+```
+
+#### Getter & Setter
+
+```javascript
+const _velocity = Symbol('Velocity')
+class Car {
+    constructor(name){
+        this.name = name
+        this[_velocity] = 0
+    }
+
+    get velocity(){
+        return this[_velocity]
+    }
+    
+    set velocity(value){
+        if (typeof value !== 'number') return
+        if (value >= 100 || value <= 0) return
+
+        this[_velocity] = value
+    }
+}
+
+const car = new Car('Fusca')
+car.velocity = 50
+car.velocity // 50 
 ```
 
 ### Valores primitivos e por referencia
