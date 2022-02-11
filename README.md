@@ -1311,6 +1311,56 @@ car.velocity = 50
 car.velocity // 50 
 ```
 
+#### Herança com classes
+
+```javascript
+class Genius{
+    constructor(name){
+        this.name = name
+    }
+
+    sayHello(){
+        console.log('Hello')
+    }
+}
+
+class People extends Genius{
+    constructor(name, age){
+        super(name) //Construtor pai
+        this.age = 76
+    }
+
+    //Sobre escrever o metodo da classe pai
+    sayHello(){
+        console.log("I'm another hello")
+    }
+}
+```
+
+#### Metodos estaticos
+
+> Acessa a classe sem instanciar a classe
+
+```javascript
+class Genius{
+    constructor(name){
+        this.name = name
+    }
+
+    //metodo de instancia
+    sayHello(){
+        console.log('Hello')
+    }
+    //metodo estatico
+    static sayHelloToEverybody(){
+        console.log('Hello world!')
+    }
+}
+
+Genius.sayHelloToEverybody() // Hello world
+```
+
+
 ### Valores primitivos e por referencia
 
 #### Valores primitivos (imutaveis)

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Modelo</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+  <section class="container">
+    <h1>Validação de formulário</h1>
+    <ul>
+      <ol>Nenhum campo pode estar vazio</ol>
+      <ol>Usuário só podera conter letras ou numeros</ol>
+      <ol>Usuário devera ter entre 3 e 12 caracteres</ol>
+      <ol>Senha precisa ter entre 6 e 12 catacteres</ol>
+    </ul>
+
+    <form method="post" action="/" class='formulario'>
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" class='nome validar'>
+      <label for="sobrenome">sobrenome</label>
+      <input type="text" name="sobrenome" class='sobrenome validar'>
+      <label for="cpf">cpf</label>
+      <input type="text" name="cpf" class='cpf validar'>
+      <label for="usuario">usuario</label>
+      <input type="text" name="usuario" class='usuario validar'>
+      <label for="senha">senha</label>
+      <input type="password" name="senha" class='senha validar'>
+      <label for="confirma-senha">confirma-senha</label>
+      <input type="password" name="confirma-senha" class='confirma-senha validar'>
+      <input type="submit" value="Enviar">
+    </form>
+
+
+  </section>  
+
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/validaCpf.js"> </script>
+</body>
+
+</html>
