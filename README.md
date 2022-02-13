@@ -2028,3 +2028,190 @@ localStorage.getItem('name-item')
  
 ```
 
+### Promise
+
+- Pending
+- fullfilled - Resolvida
+- Rejected
+
+> Execução em pararélo, assincrono 
+
+> Muito utilizado em conexões com banco de dados e chamadas em API. Esse método é utilizado quando não sabemos a hora correta que vamos receber um retorno da requisição feita. Então é retornado uma promessa de resultado, e podemos usar métodos para esperar essa promessa ser cumprida.
+
+```javascript
+//Example - Modelo classico
+function esperaAi(msg, tempo) {
+    return new Promise((resolve, reject) => {
+        if (typeof msg !== 'string') {
+            reject('Valor incorreto')
+            return
+        }
+        setTimeout(() => {
+            resolve(msg)
+        }, tempo)
+    })
+}
+
+esperaAi('Frase 1', 1000)
+    .then(resposta => {
+        console.log(resposta)
+        return esperaAi('Frase 2', 1000)
+    })
+    .then(resposta => {
+        console.log(resposta)
+    })
+    .catch(e => {
+        console.log('Erro: ',e)
+    })
+```
+
+#### Métodos uteis para promisses
+
+##### Promise.all
+
+> Resolve promessas em sequencia e retorna um array com os resultados
+
+```javascript
+function esperaAi(msg, tempo) {
+    return new Promise((resolve, reject) => {
+        if (typeof msg !== 'string') {
+            reject('Valor incorreto')
+            return
+        }
+        setTimeout(() => {
+            resolve(msg)
+        }, tempo)
+    })
+}
+
+promisses = [
+    esperaAi('Frase 1', 1000),
+    esperaAi('Frase 2', 1000),
+    esperaAi('Frase 3', 1000),
+]
+
+Promise.all(promisses)
+    .then(valor => console.log(valor))
+    .catch(error => console.log(error))
+
+// ['Frase 1', 'Frase 2', 'Frase 3']
+```
+
+##### Promise race
+
+> Retorna o primeiro valor que for resolvido
+
+```javascript
+function esperaAi(msg, tempo) {
+    return new Promise((resolve, reject) => {
+        if (typeof msg !== 'string') {
+            reject('Valor incorreto')
+            return
+        }
+        setTimeout(() => {
+            resolve(msg)
+        }, tempo)
+    })
+}
+
+promisses = [
+    esperaAi('Frase 1', 1000),
+    esperaAi('Frase 2', 5000),
+    esperaAi('Frase 3', 500),
+]
+
+Promise.race(promisses)
+    .then(valor => console.log(valor))
+    .catch(error => console.log(error))
+```
+
+##### Promise resolve e reject
+
+> Retorna uma promise resolvida
+
+```javascript
+function emCache(){
+    const cache = true
+
+    if (cache){
+        return Promise.resolve('Em cache!')
+    } else {
+        return Promise.reject('Página sem cache')
+    }
+}
+
+emCache()
+    .then(mensagem => console.log(mensagem))
+    .catch(mensagem => console.log(mensagem))
+```
+
+##### Async await
+
+> Método para facilitar resolver promessas de moto sincrono
+
+```javascript
+function esperaAi(msg, tempo) {
+    return new Promise((resolve, reject) => {
+        if (typeof msg !== 'string') {
+            reject('Valor incorreto')
+            return
+        }
+        setTimeout(() => {
+            resolve(msg)
+        }, tempo)
+    })
+}
+
+// É necessário utilizar com funções
+async function executa(){
+    // Para capturar as rejeições é necessário utilizar try catch
+    try{
+          const frase1 = await esperaAi('Frase 1', 1000)
+        console.log(frase1)
+        const frase2 = await esperaAi('Frase 2', 2000)
+        console.log(frase2)
+        const frase3 = await esperaAi('Frase 3', 500)
+        console.log(frase3)
+    } catch(e) {
+        console.log(e)
+    }
+    
+}
+executa()
+```
+
+### Requisições
+
+#### XMLHttpRequest
+
+> Quase não se usa mais, pois o Axios está dominando geral
+
+```javascript
+//Exemplo de requisição para o Google (Funciona dentro do site do Google)
+const xhr = new XMLHttpRequest()
+// xhr.open(method, url, async)
+xhr.open('GET', 'https://www.google.com', true)
+xhr.send()
+xhr.status // 200
+```
+
+#### Fetch API
+
+> Maneira mais simples de fazer requisições
+
+- Retorna um Promise
+
+```javascript
+//Exampo - Requisição para o Google (Funciona dentro do site do Google)
+fetch('https://www.google.com')
+    .then(result => result.text())
+    // result.text() - Retorna outra promise
+    .then(html => console.log(html))
+```
+
+
+
+
+
+
+
