@@ -1550,6 +1550,16 @@ if (num > 9){
 }
 ```
 
+#### Avaliação por curto-circuito
+
+> É utilizada para tomar uma ação somente quando a condição for verdadeira. Esse método de avaliação não aceita else.
+
+```javascript
+condition && trueLogic
+//Exemplo
+1 === 1 && console.log('True') // true
+```
+
 #### Operação ternario
 
 > Pode substituir parte do código com condicionais mais simples
@@ -2182,6 +2192,8 @@ executa()
 
 ### Requisições
 
+> Utilização de requisições AJAX
+
 #### XMLHttpRequest
 
 > Quase não se usa mais, pois o Axios está dominando geral
@@ -2197,7 +2209,7 @@ xhr.status // 200
 
 #### Fetch API
 
-> Maneira mais simples de fazer requisições
+> Maneira simples de fazer requisições
 
 - Retorna um Promise
 
@@ -2209,8 +2221,119 @@ fetch('https://www.google.com')
     .then(html => console.log(html))
 ```
 
+#### Axios
 
+> Ele não é nativo do JS então precisa entrar na Doc dele no Github e baixar por lá
 
+[GitHub](https://github.com/axios/axios)
+
+```javascript
+axios('target').then().catch()
+```
+
+### Compiladores e transpiladores (Acho que é assim)
+
+#### Babel
+
+[Documentação](https://babeljs.io/docs/en/)
+
+##### Instalação
+
+```js
+npm install --save-dev  @babel/cli @babel/preset-env @babel/core
+```
+
+##### Conversão de código
+
+```javascript
+npx babel main.js -o bundle.js --presets=@babel/env
+```
+
+##### Automazar a conversão de código
+
+> Dentro do arquivo package.json, na linha de scripts
+
+```json
+"babel": "babel ./main.js -o ./bundle.js --presets=@babel/env -w"
+```
+
+### WebPack
+
+#### Instalação
+
+```js
+npm i --save-dev @babel/preset-env @babel/cli @babel/core babel-loader webpack webpack-cli 
+npm i core-js regenerator-
+
+// loader para css
+npm i style-loader css-loader
+
+```
+
+##### configuração
+
+> Dentro do arquivo webpack.config.js
+
+```javascript
+//configuração padrão
+const path = require('path')
+ 
+module.exports = {
+    mode: 'development',
+    //Arquivo de entrada
+    entry: './src/main.js',
+    //Arquivo de saida
+    output: {
+        path: path.resolve(__dirname, 'public', 'assets','js'),
+        filename: 'bundle.js'
+    },
+    module: {
+        rules: [{
+            exclude: /node_modules/,
+            test: /\.js$/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/env']
+                }
+            }
+        },
+    {
+        //loader do CSS
+        test: /\.css$/,
+        use: ['style-loader','css-loader']
+    }]
+    },
+    devtool: 'source-map'
+}
+```
+
+### Import & Export
+
+> Cara, existem várias formas. Irei listar as mais usada abaixo, mas é bom ver a doc :3
+
+#### Export
+
+```javascript
+const name = 'Albert'
+const surname = 'Einstein'
+export name
+export default name
+export name as genius
+export const name = 'Albert'
+export {name as genius, surname as default}
+```
+
+#### import
+
+```javascript
+import { name } from './path/file_name'
+// If have export default
+import anyName from './path/file_name'
+
+import { name, surname as surnameOfGenius} from './path/file_name'
+import defaultModule { surnameOfGenius } from './path/file_name'
+```
 
 
 

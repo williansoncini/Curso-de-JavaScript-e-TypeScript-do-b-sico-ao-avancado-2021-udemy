@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
     mode: 'development',
     //Arquivo de entrada
-    entry: './src/assets/js/index.js',
+    entry: './src/index.js',
     //Arquivo de saida
     output: {
         path: path.resolve(__dirname, 'public', 'assets','js'),
