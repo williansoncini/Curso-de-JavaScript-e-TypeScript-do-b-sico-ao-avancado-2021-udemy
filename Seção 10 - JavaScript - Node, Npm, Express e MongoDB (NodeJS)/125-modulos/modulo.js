@@ -1,0 +1,1 @@
+module.exports = () => console.log('É só me importar e usar')

@@ -1,0 +1,2 @@
+const soUsar = require('./modulo')
+ 
