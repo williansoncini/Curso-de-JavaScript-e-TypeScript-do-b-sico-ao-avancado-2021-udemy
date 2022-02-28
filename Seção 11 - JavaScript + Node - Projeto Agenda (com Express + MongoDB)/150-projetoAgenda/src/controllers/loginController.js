@@ -24,6 +24,6 @@ exports.register = async (req, res) => {
         return 
     } catch(e) {
         console.log(e)
-        return res.render('404')
+        return res.render('includes/404')
     }
 }
