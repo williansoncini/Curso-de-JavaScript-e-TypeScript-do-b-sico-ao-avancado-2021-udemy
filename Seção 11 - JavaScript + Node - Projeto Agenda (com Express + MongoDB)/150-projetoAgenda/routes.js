@@ -11,5 +11,6 @@ const meuMiddleware = (req, res, next) => {
 router.get('/', meuMiddleware, homeController.index)
 
 router.get('/login', loginController.index)
+router.post('/login/register', loginController.register)
 
 module.exports = router

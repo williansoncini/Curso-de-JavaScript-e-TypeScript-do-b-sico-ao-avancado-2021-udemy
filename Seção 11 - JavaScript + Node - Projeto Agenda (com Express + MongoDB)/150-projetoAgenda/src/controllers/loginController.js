@@ -1,3 +1,29 @@
+const Login = require('../models/LoginModel')
+
 exports.index = (req, res) => {
     res.render('login')
+}
+
+exports.register = async (req, res) => {
+    try {
+        const login = new Login(req.body)
+        await login.register()
+        if (login.errors.length > 0){
+            console.log('Passei aqui    ')
+            req.flash('errors', login.errors)
+            req.session.save(() => {
+                return res.redirect('back')
+            })
+            return
+        }
+
+        req.flash('success', 'Cadastro realizadissimo!')
+        req.session.save(() => {
+            return res.redirect('back')
+        })
+        return 
+    } catch(e) {
+        console.log(e)
+        return res.render('404')
+    }
 }
