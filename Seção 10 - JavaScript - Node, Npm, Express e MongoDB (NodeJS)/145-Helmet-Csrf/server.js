@@ -10,7 +10,6 @@ const csurf = require('csurf')
 
 app.use(helmet())
 
-
 mongoose.connect(process.env.CONNECT_MONGO_STRING)
     .then(() => app.emit('pronto'))
     .catch(e => console.log(e))
