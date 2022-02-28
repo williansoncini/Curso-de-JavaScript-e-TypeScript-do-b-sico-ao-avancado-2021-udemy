@@ -1,0 +1,1 @@
+Esse é o conteudo de um arquivo estático
