@@ -24,6 +24,7 @@ exports.loginRequired = (req, res, next) => {
         req.session.save(() => {
             return res.redirect('/login')
         })
+        return
     }
     next()
 }

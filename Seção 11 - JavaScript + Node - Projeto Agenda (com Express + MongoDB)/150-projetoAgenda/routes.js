@@ -19,7 +19,8 @@ router.get('/login/logout', loginController.logout)
 
 router.get('/contato', loginRequired, contatoController.index)
 router.post('/contato/register', loginRequired, contatoController.register)
-router.get('/contato/:id', loginRequired, contatoController.edit)
-
+router.get('/contato/edit/:id', loginRequired, contatoController.edit)
+router.post('/contato/edit/:id', loginRequired, contatoController.editPost)
+router.get('/contato/delete/:id', loginRequired, contatoController.delete)
 
 module.exports = router
