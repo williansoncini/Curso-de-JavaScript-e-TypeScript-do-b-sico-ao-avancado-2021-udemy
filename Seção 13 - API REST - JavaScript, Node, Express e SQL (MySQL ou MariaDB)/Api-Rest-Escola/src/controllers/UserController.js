@@ -4,7 +4,10 @@ class UserController {
   async store(req, res) {
     try {
       const novoUser = await User.create(req.body);
-      return res.status(200).json(novoUser);
+
+      const { id, nome, email } = novoUser;
+
+      return res.status(200).json({ id, nome, email });
     } catch (e) {
       console.log(e);
       return res.status(400).json({
@@ -17,7 +20,7 @@ class UserController {
     try {
       console.log(req.userId);
       console.log(req.userEmail);
-      const users = await User.findAll();
+      const users = await User.findAll({ attributes: ['id', 'nome', 'email'] });
       return res.json(users);
     } catch (error) {
       console.log(error);
@@ -29,7 +32,10 @@ class UserController {
     try {
       const { id } = req.params;
       const user = await User.findByPk(id);
-      return res.json(user);
+
+      const { nome, email } = user;
+
+      return res.json(id, nome, email);
     } catch (error) {
       console.log(error);
       return res.json(null);
@@ -38,7 +44,8 @@ class UserController {
 
   async update(req, res) {
     try {
-      const { id } = req.params;
+      const id = req.userId;
+      console.log(id);
 
       if (!id) {
         return res.status(400).json({
@@ -55,7 +62,8 @@ class UserController {
       }
 
       const updatedUser = await user.update(req.body);
-      return res.json(updatedUser);
+      const { nome, email } = updatedUser;
+      return res.json({ nome, email });
     } catch (e) {
       console.log(e);
       return res.status(400).json({
@@ -66,7 +74,7 @@ class UserController {
 
   async delete(req, res) {
     try {
-      const { id } = req.params;
+      const id = req.userId;
 
       if (!id) {
         return res.status(400).json({
@@ -83,7 +91,7 @@ class UserController {
       }
 
       await user.destroy();
-      return res.json(user);
+      return res.json(null);
     } catch (e) {
       console.log(e);
       return res.status(400).json({
