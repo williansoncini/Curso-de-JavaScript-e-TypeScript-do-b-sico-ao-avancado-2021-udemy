@@ -18,7 +18,7 @@ export default class Aluno extends Model {
         defaultValue: '',
         validate: {
           len: {
-            args: [3,255],
+            args: [3, 255],
             msg: 'Sobrenome precisa ter entre 3 e 255 caracteres',
           },
         },
@@ -32,7 +32,7 @@ export default class Aluno extends Model {
         validate: {
           isEmail: {
             msg: 'Insira um e-mail valido',
-          }
+          },
         },
       },
       idade: {
