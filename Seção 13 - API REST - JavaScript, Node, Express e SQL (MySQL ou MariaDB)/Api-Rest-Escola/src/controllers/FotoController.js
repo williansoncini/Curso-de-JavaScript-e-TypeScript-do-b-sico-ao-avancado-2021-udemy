@@ -14,11 +14,17 @@ class FotoController {
         });
       }
 
-      const { originalname, filename } = req.file;
-      const { aluno_id } = req.body;
-      const foto = await Foto.create({ originalname, filename, aluno_id });
+      try {
+        const { originalname, filename } = req.file;
+        const { aluno_id } = req.body;
+        const foto = await Foto.create({ originalname, filename, aluno_id });
 
-      res.json(foto);
+        res.json(foto);
+      } catch (e) {
+        return res.status(400).json({
+          errors: ['Id faltando'],
+        });
+      }
     });
   }
 }
