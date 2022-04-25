@@ -1,7 +1,8 @@
 import React from 'react';
+import { PomodoroTimer } from './components/pomodoroTimer';
 
 function App() {
-  return <h1>hello</h1>;
+  return <PomodoroTimer defaultPomodoroTimer={1500}></PomodoroTimer>;
 }
 
 export default App;
